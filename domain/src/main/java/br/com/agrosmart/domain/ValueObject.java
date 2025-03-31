@@ -1,5 +1,4 @@
 package br.com.agrosmart.domain;
 
-public class CerealistaTest {
-
+public abstract class ValueObject {
 }
