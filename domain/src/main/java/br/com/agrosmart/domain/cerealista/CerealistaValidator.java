@@ -17,6 +17,7 @@ public class CerealistaValidator extends Validator {
     public void validate() {
 
         checkNameConstraints();
+        checkCnpjConstraints();
 
     }
 
@@ -35,6 +36,24 @@ public class CerealistaValidator extends Validator {
         final int length = name.trim().length();
         if(length > 30 || length < 3) {
             this.validationHandler().append(new Error("'nome' deve ter entre 3 e 30 caracteres"));
+            return;
+        }
+    }
+
+    private void checkCnpjConstraints() {
+        final var cnpj = this.cerealista.getCnpj();
+        if(cnpj == null) {
+            this.validationHandler().append(new Error("'nome' nao pode ser nulo"));
+            return;
+        }
+
+        if(cnpj.isEmpty()) {
+            this.validationHandler().append(new Error("'nome' nao pode ser vazio"));
+            return;
+        }
+
+        if(!cnpj.matches("[0-9]{2}[.-]?[0-9]{3}[.-]?[0-9]{3}[./-]?[0-9]{4}[.-]?[0-9]{2}")) {
+            this.validationHandler().append(new Error("'cnpj' deve ter conter 14 números"));
             return;
         }
     }

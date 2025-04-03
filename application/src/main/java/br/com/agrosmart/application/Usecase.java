@@ -1,5 +1,8 @@
 package br.com.agrosmart.application;
 
-public class Usecase {
+public abstract class Usecase<IN, OUT> {
+
+    public abstract OUT execute(IN anIn);
+
 
 }

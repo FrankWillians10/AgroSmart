@@ -95,4 +95,58 @@ public class CerealistaTest {
 
     }
 
+    @Test
+    public void dadoUmCnpjInvalido_quandoChamarNewCerealistaEValidate_entaoLancaUmaException() {
+        final String nomeEsperado = "Lar";
+        final var cnpjEsperado = "123456789012345";
+        final var mensagemDeErroEsperada = "'cnpj' deve ter conter 14 números";
+        final var quantidadeDeErrosEsperados = 1;
+
+        final var umaCerealista =
+                Cerealista.newCerealista(nomeEsperado, cnpjEsperado);
+
+        final var atualException =
+                Assertions.assertThrows(DomainException.class, () -> umaCerealista.validate(new ThrowsValidationHandler()));
+
+        Assertions.assertEquals(mensagemDeErroEsperada ,atualException.getErrors().get(0).message());
+        Assertions.assertEquals(quantidadeDeErrosEsperados ,atualException.getErrors().size());
+
+    }
+
+    @Test
+    public void dadoUmCnpjNulo_quandoChamarNewCerealistaEValidate_entaoLancaUmaException() {
+        final String nomeEsperado = "Lar";
+        final String cnpjEsperado = null;
+        final var mensagemDeErroEsperada = "'nome' nao pode ser nulo";
+        final var quantidadeDeErrosEsperados = 1;
+
+        final var umaCerealista =
+                Cerealista.newCerealista(nomeEsperado, cnpjEsperado);
+
+        final var atualException =
+                Assertions.assertThrows(DomainException.class, () -> umaCerealista.validate(new ThrowsValidationHandler()));
+
+        Assertions.assertEquals(mensagemDeErroEsperada ,atualException.getErrors().get(0).message());
+        Assertions.assertEquals(quantidadeDeErrosEsperados ,atualException.getErrors().size());
+
+    }
+
+    @Test
+    public void dadoUmCnpjVazio_quandoChamarNewCerealistaEValidate_entaoLancaUmaException() {
+        final String nomeEsperado = "Lar";
+        final String cnpjEsperado = "";
+        final var mensagemDeErroEsperada = "'nome' nao pode ser vazio";
+        final var quantidadeDeErrosEsperados = 1;
+
+        final var umaCerealista =
+                Cerealista.newCerealista(nomeEsperado, cnpjEsperado);
+
+        final var atualException =
+                Assertions.assertThrows(DomainException.class, () -> umaCerealista.validate(new ThrowsValidationHandler()));
+
+        Assertions.assertEquals(mensagemDeErroEsperada ,atualException.getErrors().get(0).message());
+        Assertions.assertEquals(quantidadeDeErrosEsperados ,atualException.getErrors().size());
+
+    }
+
 }
